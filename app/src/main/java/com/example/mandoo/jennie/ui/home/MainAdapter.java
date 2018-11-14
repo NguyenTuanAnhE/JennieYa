@@ -16,16 +16,20 @@ public class MainAdapter extends RecyclerView.Adapter<MainHolder> {
 
     private List<Genre> mGenres;
     private LayoutInflater mInflater;
+    private OnGenreClickListener mListener;
 
-    public MainAdapter(Context context) {
+    MainAdapter(OnGenreClickListener listener) {
         mGenres = new ArrayList<>();
-        mInflater = LayoutInflater.from(context);
+        mListener = listener;
     }
 
     @NonNull
     @Override
     public MainHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        return new MainHolder(mInflater.inflate(R.layout.item_genre, viewGroup, false));
+        if (mInflater == null) {
+            mInflater = LayoutInflater.from(viewGroup.getContext());
+        }
+        return new MainHolder(mInflater.inflate(R.layout.item_genre, viewGroup, false), mListener);
     }
 
     @Override

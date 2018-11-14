@@ -35,12 +35,8 @@ public class GenreLocalDataSource implements GenreDataSource.Local {
         List<Genre> genres = new ArrayList<>();
         Resources resources = mContext.getResources();
         genres.add(new Genre(resources.getString(R.string.my_music), "", R.drawable.home_cover_my_music));
-        genres.add(new Genre(resources.getString(R.string.all_track), "", R.drawable.home_cover_online_track));
-        genres.add(new Genre(resources.getString(R.string.all_audio), "", R.drawable.home_cover_audio));
-        genres.add(new Genre(resources.getString(R.string.genre_classic), "", R.drawable.home_cover_classical));
-        genres.add(new Genre(resources.getString(R.string.genre_ambient), "", R.drawable.home_cover_ambient));
-        genres.add(new Genre(resources.getString(R.string.genre_country), "", R.drawable.home_cover_country));
-        genres.add(new Genre(resources.getString(R.string.genre_alter_native_rock), "", R.drawable.home_cover_rock));
+        genres.add(new Genre(resources.getString(R.string.edit_video), "", R.drawable.home_cover_online_track));
+        genres.add(new Genre(resources.getString(R.string.edit_audio), "", R.drawable.home_cover_audio));
         listener.onFetchDataSuccess(genres);
     }
 }

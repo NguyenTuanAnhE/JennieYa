@@ -7,19 +7,22 @@ import android.view.View;
 
 import com.example.mandoo.jennie.data.model.Genre;
 import com.example.mandoo.jennie.databinding.ItemGenreBinding;
-import com.example.mandoo.jennie.util.BindingUtils;
 
-public class MainHolder extends RecyclerView.ViewHolder {
+class MainHolder extends RecyclerView.ViewHolder {
 
     private ItemGenreBinding mBinding;
+    private OnGenreClickListener mListener;
 
-    public MainHolder(@NonNull View itemView) {
+    MainHolder(@NonNull View itemView, OnGenreClickListener listener) {
         super(itemView);
         mBinding = DataBindingUtil.bind(itemView);
+        mListener = listener;
     }
 
-    public void bindData(Genre genre) {
+    void bindData(Genre genre) {
         if (genre == null) return;
         mBinding.setGenre(genre);
+        mBinding.setListener(mListener);
     }
+
 }
