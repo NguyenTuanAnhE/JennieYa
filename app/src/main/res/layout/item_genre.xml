@@ -8,11 +8,16 @@
         <variable
             name="genre"
             type="com.example.mandoo.jennie.data.model.Genre" />
+
+        <variable
+            name="listener"
+            type="com.example.mandoo.jennie.ui.home.OnGenreClickListener" />
     </data>
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:onClick="@{()->listener.onClick(genre)}">
 
         <ImageView
             android:id="@+id/image_cover"

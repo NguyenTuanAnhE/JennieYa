@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">VMusic</string>
     <string name="my_music">My Music</string>
-    <string name="all_track">All Track</string>
-    <string name="all_audio">All Audio</string>
+    <string name="edit_video">Edit Video</string>
+    <string name="edit_audio">Edit Audio</string>
     <string name="genre_classic">Classic</string>
     <string name="genre_ambient">Ambient</string>
     <string name="genre_alter_native_rock">Alternativerock</string>
