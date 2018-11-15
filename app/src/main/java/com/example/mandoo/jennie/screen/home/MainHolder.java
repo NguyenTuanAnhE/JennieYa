@@ -1,4 +1,4 @@
-package com.example.mandoo.jennie.ui.home;
+package com.example.mandoo.jennie.screen.home;
 
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;

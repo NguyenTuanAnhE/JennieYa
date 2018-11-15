@@ -1,4 +1,4 @@
-package com.example.mandoo.jennie.ui.base;
+package com.example.mandoo.jennie.screen.base;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

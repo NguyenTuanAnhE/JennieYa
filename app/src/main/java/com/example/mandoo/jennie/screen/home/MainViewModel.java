@@ -1,19 +1,17 @@
-package com.example.mandoo.jennie.ui.home;
+package com.example.mandoo.jennie.screen.home;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
-import android.arch.lifecycle.ViewModel;
 import android.databinding.ObservableField;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.example.mandoo.jennie.data.model.Genre;
 import com.example.mandoo.jennie.data.repository.GenreRepository;
 import com.example.mandoo.jennie.data.soure.GenreDataSource;
 import com.example.mandoo.jennie.data.soure.local.GenreLocalDataSource;
 import com.example.mandoo.jennie.data.soure.remote.GenreRemoteDataSource;
-import com.example.mandoo.jennie.ui.base.Navigator;
-import com.example.mandoo.jennie.ui.home.song.SongActivity;
+import com.example.mandoo.jennie.screen.base.Navigator;
+import com.example.mandoo.jennie.screen.song.SongActivity;
 
 import java.util.List;
 

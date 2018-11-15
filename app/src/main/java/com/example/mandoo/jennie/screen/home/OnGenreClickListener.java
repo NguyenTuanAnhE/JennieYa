@@ -1,4 +1,4 @@
-package com.example.mandoo.jennie.ui.home;
+package com.example.mandoo.jennie.screen.home;
 
 import com.example.mandoo.jennie.data.model.Genre;
 

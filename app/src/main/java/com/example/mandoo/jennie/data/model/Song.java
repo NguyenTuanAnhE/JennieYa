@@ -10,11 +10,11 @@ public class Song implements Parcelable {
     private String mTitle;
     private String mUri;
     private String mUsername;
+    private String mAlbumArt;
 
     public Song() {
 
     }
-
 
     private Song(Parcel in) {
         mDuration = in.readLong();
@@ -22,6 +22,7 @@ public class Song implements Parcelable {
         mTitle = in.readString();
         mUri = in.readString();
         mUsername = in.readString();
+        mAlbumArt = in.readString();
     }
 
     @Override
@@ -31,6 +32,7 @@ public class Song implements Parcelable {
         dest.writeString(mTitle);
         dest.writeString(mUri);
         dest.writeString(mUsername);
+        dest.writeString(mAlbumArt);
     }
 
     @Override
@@ -88,5 +90,13 @@ public class Song implements Parcelable {
 
     public void setUsername(String username) {
         mUsername = username;
+    }
+
+    public String getAlbumArt() {
+        return mAlbumArt;
+    }
+
+    public void setAlbumArt(String albumArt) {
+        mAlbumArt = albumArt;
     }
 }

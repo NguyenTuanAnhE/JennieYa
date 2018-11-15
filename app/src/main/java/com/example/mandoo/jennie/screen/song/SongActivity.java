@@ -1,4 +1,4 @@
-package com.example.mandoo.jennie.ui.home.song;
+package com.example.mandoo.jennie.screen.song;
 
 import android.Manifest;
 import android.arch.lifecycle.ViewModelProviders;
@@ -11,8 +11,8 @@ import android.support.v4.app.ActivityCompat;
 
 import com.example.mandoo.jennie.R;
 import com.example.mandoo.jennie.databinding.ActivitySongBinding;
-import com.example.mandoo.jennie.ui.base.BaseActivity;
-import com.example.mandoo.jennie.ui.base.Navigator;
+import com.example.mandoo.jennie.screen.base.BaseActivity;
+import com.example.mandoo.jennie.screen.base.Navigator;
 
 public class SongActivity extends BaseActivity {
 

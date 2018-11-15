@@ -1,10 +1,9 @@
-package com.example.mandoo.jennie.ui.home.song;
+package com.example.mandoo.jennie.screen.song;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.databinding.ObservableField;
 import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 
@@ -13,7 +12,8 @@ import com.example.mandoo.jennie.data.model.Song;
 import com.example.mandoo.jennie.data.repository.SongRepository;
 import com.example.mandoo.jennie.data.soure.SongDataSource;
 import com.example.mandoo.jennie.data.soure.local.SongLocalDataSource;
-import com.example.mandoo.jennie.ui.base.Navigator;
+import com.example.mandoo.jennie.screen.base.Navigator;
+import com.example.mandoo.jennie.screen.player.PlayerActivity;
 
 import java.util.List;
 
@@ -43,6 +43,11 @@ public class SongViewModel extends AndroidViewModel implements OnSongClickListen
 
     @Override
     public void onSongClick(Song song) {
+        mNavigator.startActivity(PlayerActivity.getPlayerActivityIntent(mNavigator.getContext(), song));
+    }
+
+    @Override
+    public void onMenuClick(Song song) {
 
     }
 
