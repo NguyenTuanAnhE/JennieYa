@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.mandoo.jennie.ui.home.MainViewModel" />
+            type="com.example.mandoo.jennie.screen.home.MainViewModel" />
     </data>
 
     <android.support.constraint.ConstraintLayout

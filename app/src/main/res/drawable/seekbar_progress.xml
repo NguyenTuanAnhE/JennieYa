@@ -16,7 +16,7 @@
             <shape>
                 <size android:height="@dimen/dp_2" />
                 <corners android:radius="@dimen/dp_2" />
-                <solid android:color="@color/color_golden_yellow" />
+                <solid android:color="@color/color_black" />
             </shape>
         </clip>
     </item>

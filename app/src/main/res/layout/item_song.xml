@@ -9,7 +9,7 @@
 
         <variable
             name="listener"
-            type="com.example.mandoo.jennie.ui.home.song.OnSongClickListener" />
+            type="com.example.mandoo.jennie.screen.song.OnSongClickListener" />
     </data>
 
     <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -19,14 +19,15 @@
         android:background="?android:attr/selectableItemBackground"
         android:onClick="@{()->listener.onSongClick(song)}"
         android:paddingStart="@dimen/dp_8"
-        android:paddingEnd="@dimen/dp_8"
-        android:paddingTop="@dimen/dp_8">
+        android:paddingTop="@dimen/dp_8"
+        android:paddingEnd="@dimen/dp_8">
 
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/image_album_cover"
             android:layout_width="@dimen/dp_52"
             android:layout_height="@dimen/dp_52"
             android:background="@color/colorAccent"
+            android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -69,15 +70,16 @@
             app:layout_constraintRight_toLeftOf="@id/image_download"
             app:layout_constraintTop_toBottomOf="@id/text_track_title" />
 
-        <ImageView
+        <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/image_download"
             android:layout_width="@dimen/dp_24"
             android:layout_height="@dimen/dp_24"
-            android:background="@drawable/ic_dot"
-            android:foreground="?android:attr/selectableItemBackground"
+            android:background="@drawable/ripple"
+            android:onClick="@{()-> listener.onMenuClick(song)}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:riv_corner_radius="@dimen/dp_4" />
 
     </android.support.constraint.ConstraintLayout>
 </layout>

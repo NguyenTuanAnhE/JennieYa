@@ -13,4 +13,5 @@
     <string name="error_empty_list">Empty List</string>
     <string name="error_end_of_list">End of List</string>
     <string name="loop_one">1</string>
+    <string name="random_song">Play Random</string>
 </resources>

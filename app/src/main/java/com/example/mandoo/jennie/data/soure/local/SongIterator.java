@@ -25,6 +25,7 @@ public class SongIterator {
                 MediaStore.Audio.Media.DATA,
                 MediaStore.Audio.Media.DATA,
                 MediaStore.Audio.Media._ID,
+                MediaStore.Audio.Media.ALBUM_ID,
         };
 
         Cursor cursor = mContext.getContentResolver().query(
@@ -50,6 +51,7 @@ public class SongIterator {
         int indexDuration = cursor.getColumnIndex(MediaStore.Audio.Media.DURATION);
         int indexData = cursor.getColumnIndex(MediaStore.Audio.Media.DATA);
         int indexAlbumId = cursor.getColumnIndex(MediaStore.Audio.Media._ID);
+        int indexArtAlbum = cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID);
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
@@ -59,6 +61,16 @@ public class SongIterator {
             track.setDuration(cursor.getLong(indexDuration));
             track.setUri(cursor.getString(indexData));
             track.setId(cursor.getInt(indexAlbumId));
+
+            Cursor artCursor = mContext.getContentResolver().query(MediaStore.Audio.Albums.EXTERNAL_CONTENT_URI,
+                    new String[]{MediaStore.Audio.Albums._ID, MediaStore.Audio.Albums.ALBUM_ART},
+                    MediaStore.Audio.Albums._ID + "=?",
+                    new String[]{String.valueOf(cursor.getInt(indexArtAlbum))},
+                    null);
+
+            if (artCursor.moveToFirst()) {
+                track.setAlbumArt(artCursor.getString(artCursor.getColumnIndex(MediaStore.Audio.Albums.ALBUM_ART)));
+            }
 
             tracks.add(track);
             cursor.moveToNext();

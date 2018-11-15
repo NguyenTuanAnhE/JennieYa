@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/CustomStatusBarTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-        <activity android:name=".ui.home.MainActivity">
+        <activity android:name=".screen.home.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,7 +22,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.home.song.SongActivity" />
+        <activity android:name=".screen.song.SongActivity" />
+        <activity android:name=".screen.player.PlayerActivity" />
     </application>
 
 </manifest>

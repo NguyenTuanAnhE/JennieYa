@@ -2,6 +2,8 @@
 <resources>
     <dimen name="dp_24">24dp</dimen>
     <dimen name="dp_200">200dp</dimen>
+    <dimen name="dp_250">250dp</dimen>
+    <dimen name="dp_270">270dp</dimen>
     <dimen name="dp_150">150dp</dimen>
     <dimen name="dp_36">36dp</dimen>
     <dimen name="dp_16">16dp</dimen>

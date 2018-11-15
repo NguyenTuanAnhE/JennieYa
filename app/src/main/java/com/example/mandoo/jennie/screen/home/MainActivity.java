@@ -1,12 +1,12 @@
-package com.example.mandoo.jennie.ui.home;
+package com.example.mandoo.jennie.screen.home;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 
 import com.example.mandoo.jennie.R;
 import com.example.mandoo.jennie.databinding.ActivityMainBinding;
-import com.example.mandoo.jennie.ui.base.BaseActivity;
-import com.example.mandoo.jennie.ui.base.Navigator;
+import com.example.mandoo.jennie.screen.base.BaseActivity;
+import com.example.mandoo.jennie.screen.base.Navigator;
 
 public class MainActivity extends BaseActivity {
 
