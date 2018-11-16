@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
@@ -16,12 +15,18 @@
         android:layout_height="match_parent"
         android:background="#FFCDD2">
 
+        <include
+            layout="@layout/layout_toolbar"
+            app:layout_constraintBottom_toTopOf="@+id/image_artwork"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/image_artwork"
             android:layout_width="@dimen/dp_270"
             android:layout_height="@dimen/dp_270"
             android:layout_marginTop="8dp"
-            android:background="@mipmap/ic_launcher"
+            android:background="@mipmap/ic_launcher_round"
             android:scaleType="fitXY"
             app:layout_constraintBottom_toTopOf="@+id/seek_bar_duration"
             app:layout_constraintEnd_toEndOf="parent"
@@ -35,9 +40,12 @@
 
         <SeekBar
             android:id="@+id/seek_bar_duration"
+            onSeekBarChangeListener="@{viewModel}"
+            setMax="@{viewModel.mSong.duration}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
+            android:progress="@{viewModel.mSongProgress}"
             android:progressDrawable="@drawable/seekbar_progress"
             android:thumbTint="@android:color/black"
             android:thumbTintMode="src_in"
@@ -48,6 +56,7 @@
 
         <TextView
             android:id="@+id/text_current"
+            setDuration="@{viewModel.mSongProgress}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_8"
@@ -58,9 +67,10 @@
 
         <TextView
             android:id="@+id/text_duration"
+            setDuration="@{viewModel.mSong.duration}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/dp_8"
+            android:layout_marginEnd="@dimen/dp_8"
             android:textColor="@android:color/white"
             android:textSize="@dimen/sp_12"
             app:layout_constraintBottom_toTopOf="@id/seek_bar_duration"
@@ -77,8 +87,8 @@
             android:marqueeRepeatLimit="marquee_forever"
             android:scrollHorizontally="true"
             android:singleLine="true"
-            android:textSize="@dimen/sp_24"
             android:text="@{viewModel.mSong.title}"
+            android:textSize="@dimen/sp_24"
             app:layout_constraintBottom_toTopOf="@+id/text_artist"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent" />
@@ -87,15 +97,15 @@
             android:id="@+id/text_artist"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp_16"
             android:ellipsize="marquee"
             android:focusable="true"
             android:focusableInTouchMode="true"
             android:marqueeRepeatLimit="marquee_forever"
             android:scrollHorizontally="true"
             android:singleLine="true"
-            android:textSize="@dimen/sp_16"
             android:text="@{viewModel.mSong.username}"
-            android:layout_marginBottom="@dimen/dp_16"
+            android:textSize="@dimen/sp_16"
             app:layout_constraintBottom_toTopOf="@+id/image_play_pause"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent" />

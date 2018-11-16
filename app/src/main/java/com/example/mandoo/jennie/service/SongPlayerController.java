@@ -24,4 +24,10 @@ public interface SongPlayerController {
 
     void shuffleOff();
 
+    Song getCurrentSong();
+
+    int getCurrentProgress();
+
+    void seekTo(int position);
+
 }
