@@ -5,7 +5,7 @@ import android.os.Parcelable;
 
 public class Song implements Parcelable {
 
-    private long mDuration;
+    private int mDuration;
     private int mId;
     private String mTitle;
     private String mUri;
@@ -17,7 +17,7 @@ public class Song implements Parcelable {
     }
 
     private Song(Parcel in) {
-        mDuration = in.readLong();
+        mDuration = in.readInt();
         mId = in.readInt();
         mTitle = in.readString();
         mUri = in.readString();
@@ -27,7 +27,7 @@ public class Song implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeLong(mDuration);
+        dest.writeInt(mDuration);
         dest.writeInt(mId);
         dest.writeString(mTitle);
         dest.writeString(mUri);
@@ -52,11 +52,11 @@ public class Song implements Parcelable {
         }
     };
 
-    public long getDuration() {
+    public int getDuration() {
         return mDuration;
     }
 
-    public void setDuration(long duration) {
+    public void setDuration(int duration) {
         mDuration = duration;
     }
 

@@ -1,6 +1,7 @@
 package com.example.mandoo.jennie.service;
 
 import android.media.MediaPlayer;
+import android.util.Log;
 
 import com.example.mandoo.jennie.data.model.Song;
 import com.example.mandoo.jennie.util.media.LoopStatus;
@@ -34,7 +35,8 @@ public class SongManager implements SongPlayerController, MediaPlayer.OnPrepared
 
     @Override
     public void play(Song song) {
-        if (song.getId() == mCurrentSong.getId()) return;
+        if (!isNewSongSelected(song)) return;
+        if (mPlayer != null) mPlayer.reset();
         try {
             mSelectedSong = song;
             mPlayer.setDataSource(song.getUri());
@@ -97,6 +99,21 @@ public class SongManager implements SongPlayerController, MediaPlayer.OnPrepared
     }
 
     @Override
+    public Song getCurrentSong() {
+        return mCurrentSong;
+    }
+
+    @Override
+    public int getCurrentProgress() {
+        return mPlayer == null ? 0 : mPlayer.getCurrentPosition();
+    }
+
+    @Override
+    public void seekTo(int position) {
+        mPlayer.seekTo(position);
+    }
+
+    @Override
     public void onPrepared(MediaPlayer mp) {
         mCurrentSong = mSelectedSong;
         mp.start();
@@ -114,7 +131,65 @@ public class SongManager implements SongPlayerController, MediaPlayer.OnPrepared
         }
     }
 
+    public boolean isNewSongSelected(Song song) {
+        if (song == null) {
+            return false;
+        }
+        if (mCurrentSong == null) {
+            return true;
+        }
+        return song.getId() != mCurrentSong.getId();
+    }
+
     private boolean isEndOfList() {
         return mCurrentPosition > mSongs.size() - 1;
+    }
+
+    public MediaPlayer getPlayer() {
+        return mPlayer;
+    }
+
+    public void setPlayer(MediaPlayer player) {
+        mPlayer = player;
+    }
+
+    public LoopStatus getLoop() {
+        return mLoop;
+    }
+
+    public void setLoop(LoopStatus loop) {
+        mLoop = loop;
+    }
+
+    public ShuffleStatus getShuffle() {
+        return mShuffle;
+    }
+
+    public void setShuffle(ShuffleStatus shuffle) {
+        mShuffle = shuffle;
+    }
+
+    public List<Song> getSongs() {
+        return mSongs;
+    }
+
+    public void setSongs(List<Song> songs) {
+        mSongs = songs;
+    }
+
+    public void setCurrentSong(Song currentSong) {
+        mCurrentSong = currentSong;
+    }
+
+    public Song getSelectedSong() {
+        return mSelectedSong;
+    }
+
+    public void setSelectedSong(Song selectedSong) {
+        mSelectedSong = selectedSong;
+    }
+
+    public void setCurrentPosition(int currentPosition) {
+        mCurrentPosition = currentPosition;
     }
 }

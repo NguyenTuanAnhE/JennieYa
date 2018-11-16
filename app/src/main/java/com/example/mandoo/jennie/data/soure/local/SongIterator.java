@@ -58,7 +58,7 @@ public class SongIterator {
             Song track = new Song();
             track.setTitle(cursor.getString(indexTitle));
             track.setUsername(cursor.getString(indexArtist));
-            track.setDuration(cursor.getLong(indexDuration));
+            track.setDuration((int)cursor.getLong(indexDuration));
             track.setUri(cursor.getString(indexData));
             track.setId(cursor.getInt(indexAlbumId));
 

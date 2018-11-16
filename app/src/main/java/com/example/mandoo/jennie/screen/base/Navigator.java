@@ -15,6 +15,10 @@ public class Navigator {
         mActivity.startActivity(intent);
     }
 
+    public void startService(Intent intent) {
+        mActivity.startService(intent);
+    }
+
     public Context getContext() {
         return mActivity;
     }
