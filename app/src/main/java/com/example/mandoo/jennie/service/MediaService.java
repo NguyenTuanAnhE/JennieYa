@@ -266,9 +266,9 @@
 //     * Callback when shuffle mode change
 //     */
 //    @Override
-//    public void onShuffle(int shuffle) {
+//    public void onShuffleClicked(int shuffle) {
 //        for (MediaServiceListener listener : mListeners) {
-//            listener.onShuffle(shuffle);
+//            listener.onShuffleClicked(shuffle);
 //        }
 //    }
 //
@@ -276,9 +276,9 @@
 //     * Callback when loop mode change
 //     */
 //    @Override
-//    public void onLoop(int loop) {
+//    public void onLoopClicked(int loop) {
 //        for (MediaServiceListener listener : mListeners) {
-//            listener.onLoop(loop);
+//            listener.onLoopClicked(loop);
 //        }
 //    }
 //

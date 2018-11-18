@@ -4,18 +4,17 @@ import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.databinding.ObservableField;
 import android.support.annotation.NonNull;
-import android.util.Log;
 import android.widget.SeekBar;
 
 import com.example.mandoo.jennie.data.model.Song;
 import com.example.mandoo.jennie.screen.base.Navigator;
 
-public class PlayerViewModel extends AndroidViewModel implements SeekBar.OnSeekBarChangeListener {
+public class PlayerViewModel extends AndroidViewModel {
 
     public ObservableField<Song> mSong;
     public ObservableField<Integer> mSongProgress;
     private Navigator mNavigator;
-    private OnSeekBarChangeListener mListener;
+    private OnSongChangeListener mListener;
 
     public PlayerViewModel(@NonNull Application application) {
         super(application);
@@ -27,7 +26,7 @@ public class PlayerViewModel extends AndroidViewModel implements SeekBar.OnSeekB
         mNavigator = navigator;
     }
 
-    public void setListener(OnSeekBarChangeListener listener) {
+    public void setListener(OnSongChangeListener listener) {
         mListener = listener;
     }
 
@@ -35,24 +34,8 @@ public class PlayerViewModel extends AndroidViewModel implements SeekBar.OnSeekB
         mSongProgress.set(progress);
     }
 
-    @Override
-    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-        if (fromUser) {
-            mListener.onProgressChanged(progress);
-        }
-    }
+    public interface OnSongChangeListener {
 
-    @Override
-    public void onStartTrackingTouch(SeekBar seekBar) {
 
-    }
-
-    @Override
-    public void onStopTrackingTouch(SeekBar seekBar) {
-
-    }
-
-    public interface OnSeekBarChangeListener {
-        void onProgressChanged(int progress);
     }
 }

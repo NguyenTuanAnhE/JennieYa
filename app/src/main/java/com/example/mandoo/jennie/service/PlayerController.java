@@ -2,9 +2,11 @@ package com.example.mandoo.jennie.service;
 
 import com.example.mandoo.jennie.data.model.Song;
 
-public interface SongPlayerController {
+public interface PlayerController {
 
     void play(Song song);
+
+    void playPause();
 
     void pause();
 
@@ -16,9 +18,13 @@ public interface SongPlayerController {
 
     void previousSong();
 
+    void loop();
+
     void loopOne();
 
     void loopAll();
+
+    void shuffle();
 
     void shuffleOn();
 

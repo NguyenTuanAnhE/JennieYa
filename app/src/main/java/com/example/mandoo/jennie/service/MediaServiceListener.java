@@ -10,7 +10,7 @@ package com.example.mandoo.jennie.service;
 //
 //    void playTrack(Track track);
 //
-//    void onShuffle(int shuffle);
+//    void onShuffleClicked(int shuffle);
 //
-//    void onLoop(int loop);
+//    void onLoopClicked(int loop);
 //}

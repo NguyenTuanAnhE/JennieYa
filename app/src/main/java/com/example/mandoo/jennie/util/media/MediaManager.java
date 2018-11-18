@@ -236,7 +236,7 @@ public class MediaManager {
 //                mShuffle = NO_SHUFFLE;
 //            }
 //        }
-//        mListener.onShuffle(mShuffle);
+//        mListener.onShuffleClicked(mShuffle);
 //    }
 //
 //    public void switchLoopState() {
@@ -254,7 +254,7 @@ public class MediaManager {
 //                break;
 //        }
 //        //update ui loop button
-//        mListener.onLoop(mLoop);
+//        mListener.onLoopClicked(mLoop);
 //    }
 //
 //    /**
@@ -332,11 +332,11 @@ public class MediaManager {
 ////
 ////        void onPause(Track track, boolean reLoad);
 ////
-////        void onPlay(Track track, boolean reLoad);
+////        void onPlayClicked(Track track, boolean reLoad);
 ////
 ////        void onPrepared(Track track);
 ////
-////        void onShuffle(int shuffle);
+////        void onShuffleClicked(int shuffle);
 ////
-////        void onLoop(int loop);
+////        void onLoopClicked(int loop);
 

@@ -14,7 +14,7 @@ import com.example.mandoo.jennie.data.soure.SongDataSource;
 import com.example.mandoo.jennie.data.soure.local.SongLocalDataSource;
 import com.example.mandoo.jennie.screen.base.Navigator;
 import com.example.mandoo.jennie.screen.player.PlayerActivity;
-import com.example.mandoo.jennie.service.SongService;
+import com.example.mandoo.jennie.service.PlayerService;
 
 import java.util.List;
 
@@ -44,7 +44,7 @@ public class SongViewModel extends AndroidViewModel implements OnSongClickListen
 
     @Override
     public void onSongClick(Song song) {
-        mNavigator.startService(SongService.getSongServiceIntent(mNavigator.getContext(), song));
+        mNavigator.startService(PlayerService.getSongServiceIntent(mNavigator.getContext(), song));
         mNavigator.startActivity(PlayerActivity.getPlayerActivityIntent(mNavigator.getContext()));
     }
 
@@ -55,7 +55,7 @@ public class SongViewModel extends AndroidViewModel implements OnSongClickListen
 
     @Override
     public void onGetLocalSongSuccess(List<Song> songs) {
-        mNavigator.startService(SongService.getSongServiceIntent(mNavigator.getContext(), songs));
+        mNavigator.startService(PlayerService.getSongServiceIntent(mNavigator.getContext(), songs));
         mAdapter.get().setData(songs);
     }
 

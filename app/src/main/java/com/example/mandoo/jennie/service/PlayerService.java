@@ -6,14 +6,13 @@ import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
 import android.os.Parcelable;
-import android.util.Log;
 
 import com.example.mandoo.jennie.data.model.Song;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SongService extends Service implements SongPlayerController {
+public class PlayerService extends Service implements PlayerController, PlayerListener {
 
     private static final String ACTION_START_SERVICE = "com.example.mandoo.jennie.ACTION_START_SERVICE";
     private static final String ACTION_START_SONG = "com.example.mandoo.jennie.ACTION_START_SONG";
@@ -21,21 +20,22 @@ public class SongService extends Service implements SongPlayerController {
     private static final String EXTRA_PLAY_SONG = "com.example.mandoo.jennie.EXTRA_PLAY_SONG";
 
     private SongBinder mBinder = new SongBinder();
-    private SongManager mManager;
+    private PlayerManager mManager;
+    private List<PlayerListener> mListeners = new ArrayList<>();
 
     public static Intent getSongServiceIntent(Context context) {
-        return new Intent(context, SongService.class);
+        return new Intent(context, PlayerService.class);
     }
 
     public static Intent getSongServiceIntent(Context context, List<Song> songs) {
-        Intent intent = new Intent(context, SongService.class);
+        Intent intent = new Intent(context, PlayerService.class);
         intent.setAction(ACTION_START_SERVICE);
         intent.putParcelableArrayListExtra(EXTRA_LIST_SONG, (ArrayList<? extends Parcelable>) songs);
         return intent;
     }
 
     public static Intent getSongServiceIntent(Context context, Song song) {
-        Intent intent = new Intent(context, SongService.class);
+        Intent intent = new Intent(context, PlayerService.class);
         intent.setAction(ACTION_START_SONG);
         intent.putExtra(EXTRA_PLAY_SONG, song);
         return intent;
@@ -49,7 +49,7 @@ public class SongService extends Service implements SongPlayerController {
     @Override
     public void onCreate() {
         super.onCreate();
-        mManager = new SongManager();
+        mManager = new PlayerManager();
     }
 
     @Override
@@ -79,6 +79,11 @@ public class SongService extends Service implements SongPlayerController {
     }
 
     @Override
+    public void playPause() {
+        mManager.playPause();
+    }
+
+    @Override
     public void pause() {
         mManager.pause();
     }
@@ -104,6 +109,11 @@ public class SongService extends Service implements SongPlayerController {
     }
 
     @Override
+    public void loop() {
+
+    }
+
+    @Override
     public void loopOne() {
         mManager.loopOne();
     }
@@ -111,6 +121,11 @@ public class SongService extends Service implements SongPlayerController {
     @Override
     public void loopAll() {
         mManager.loopAll();
+    }
+
+    @Override
+    public void shuffle() {
+
     }
 
     @Override
@@ -138,10 +153,26 @@ public class SongService extends Service implements SongPlayerController {
         mManager.seekTo(position);
     }
 
+    public void setListener(PlayerListener listener) {
+        mListeners.add(listener);
+    }
+
+    public void removeListener(PlayerListener listener) {
+        if (listener == null) return;
+        mListeners.remove(listener);
+    }
+
+    @Override
+    public void onChangePLayerState(int state) {
+        for (PlayerListener listener : mListeners) {
+            listener.onChangePLayerState(state);
+        }
+    }
+
     public class SongBinder extends Binder {
 
-        public SongService getSongService() {
-            return SongService.this;
+        public PlayerService getSongService() {
+            return PlayerService.this;
         }
 
     }

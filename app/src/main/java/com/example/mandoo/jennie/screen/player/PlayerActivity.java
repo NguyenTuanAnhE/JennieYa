@@ -8,18 +8,20 @@ import android.content.ServiceConnection;
 import android.databinding.DataBindingUtil;
 import android.os.Handler;
 import android.os.IBinder;
+import android.widget.SeekBar;
 
 import com.example.mandoo.jennie.R;
 import com.example.mandoo.jennie.databinding.ActivityPlayerBinding;
 import com.example.mandoo.jennie.screen.base.BaseActivity;
 import com.example.mandoo.jennie.screen.base.Navigator;
-import com.example.mandoo.jennie.service.SongService;
+import com.example.mandoo.jennie.service.PlayerListener;
+import com.example.mandoo.jennie.service.PlayerService;
 
-public class PlayerActivity extends BaseActivity implements PlayerViewModel.OnSeekBarChangeListener {
+public class PlayerActivity extends BaseActivity implements OnPlayerClickListener, PlayerListener, PlayerViewModel.OnSongChangeListener {
 
     private static final int DELAY_TIME = 200;
 
-    private SongService mService;
+    private PlayerService mService;
     private PlayerViewModel mViewModel;
     private boolean mIsBound;
     private Handler mHandler;
@@ -38,8 +40,8 @@ public class PlayerActivity extends BaseActivity implements PlayerViewModel.OnSe
         ActivityPlayerBinding binding = DataBindingUtil.setContentView(this, getContentLayout());
         mViewModel = ViewModelProviders.of(this).get(PlayerViewModel.class);
         mViewModel.setNavigator(new Navigator(this));
-        mViewModel.setListener(this);
         binding.setViewModel(mViewModel);
+        binding.setListener(this);
     }
 
     @Override
@@ -65,8 +67,9 @@ public class PlayerActivity extends BaseActivity implements PlayerViewModel.OnSe
     private ServiceConnection mConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
-            SongService.SongBinder binder = (SongService.SongBinder) service;
+            PlayerService.SongBinder binder = (PlayerService.SongBinder) service;
             mService = binder.getSongService();
+            mService.setListener(PlayerActivity.this);
             mIsBound = true;
 
             mViewModel.mSong.set(mService.getCurrentSong());
@@ -82,7 +85,7 @@ public class PlayerActivity extends BaseActivity implements PlayerViewModel.OnSe
     @Override
     protected void onStart() {
         super.onStart();
-        bindService(SongService.getSongServiceIntent(this), mConnection, BIND_AUTO_CREATE);
+        bindService(PlayerService.getSongServiceIntent(this), mConnection, BIND_AUTO_CREATE);
     }
 
     @Override
@@ -105,7 +108,39 @@ public class PlayerActivity extends BaseActivity implements PlayerViewModel.OnSe
     }
 
     @Override
-    public void onProgressChanged(int progress) {
+    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+        if (fromUser) {
+            mService.seekTo(progress);
+        }
+    }
+
+    @Override
+    public void onPlayClicked() {
+        mService.playPause();
+    }
+
+    @Override
+    public void onNextClicked() {
+        mService.nextSong();
+    }
+
+    @Override
+    public void onPreviousClicked() {
+        mService.previousSong();
+    }
+
+    @Override
+    public void onLoopClicked() {
+        mService.loop();
+    }
+
+    @Override
+    public void onShuffleClicked() {
+        mService.shuffle();
+    }
+
+    @Override
+    public void onChangePLayerState(int state) {
 
     }
 }

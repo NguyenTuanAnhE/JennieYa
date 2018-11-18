@@ -1,7 +1,6 @@
 package com.example.mandoo.jennie.service;
 
 import android.media.MediaPlayer;
-import android.util.Log;
 
 import com.example.mandoo.jennie.data.model.Song;
 import com.example.mandoo.jennie.util.media.LoopStatus;
@@ -14,8 +13,10 @@ import static com.example.mandoo.jennie.util.media.LoopStatus.LoopValue.LOOP_ALL
 import static com.example.mandoo.jennie.util.media.LoopStatus.LoopValue.LOOP_ONE;
 import static com.example.mandoo.jennie.util.media.ShuffleStatus.ShuffleValue.SHUFFLE_OFF;
 import static com.example.mandoo.jennie.util.media.ShuffleStatus.ShuffleValue.SHUFFLE_ON;
+import static com.example.mandoo.jennie.util.media.SongState.PAUSED;
+import static com.example.mandoo.jennie.util.media.SongState.PLAYING;
 
-public class SongManager implements SongPlayerController, MediaPlayer.OnPreparedListener, MediaPlayer.OnCompletionListener {
+public class PlayerManager implements PlayerController, MediaPlayer.OnPreparedListener, MediaPlayer.OnCompletionListener {
 
     private MediaPlayer mPlayer;
     private LoopStatus mLoop;
@@ -24,8 +25,10 @@ public class SongManager implements SongPlayerController, MediaPlayer.OnPrepared
     private Song mCurrentSong;
     private Song mSelectedSong;
     private int mCurrentPosition;
+    private int mState;
+    private PlayerListener mListener;
 
-    public SongManager() {
+    public PlayerManager() {
         mPlayer = new MediaPlayer();
         mLoop = new LoopStatus();
         mShuffle = new ShuffleStatus();
@@ -47,13 +50,27 @@ public class SongManager implements SongPlayerController, MediaPlayer.OnPrepared
     }
 
     @Override
+    public void playPause() {
+        if (mPlayer == null) return;
+        if (mPlayer.isPlaying()) {
+            pause();
+            return;
+        }
+        resume();
+    }
+
+    @Override
     public void pause() {
-        if (mPlayer.isPlaying()) mPlayer.pause();
+        mPlayer.pause();
+        mState = PAUSED;
+        mListener.onChangePLayerState(mState);
     }
 
     @Override
     public void resume() {
-        if (!mPlayer.isPlaying()) mPlayer.start();
+        mPlayer.start();
+        mState = PLAYING;
+        mListener.onChangePLayerState(mState);
     }
 
     @Override
@@ -79,23 +96,42 @@ public class SongManager implements SongPlayerController, MediaPlayer.OnPrepared
     }
 
     @Override
+    public void loop() {
+
+    }
+
+    @Override
     public void loopOne() {
         mLoop.setLoop(LOOP_ONE);
+        mState = LOOP_ONE;
+        mListener.onChangePLayerState(mState);
     }
 
     @Override
     public void loopAll() {
         mLoop.setLoop(LOOP_ALL);
+        mState = LOOP_ALL;
+        mListener.onChangePLayerState(mState);
+    }
+
+    @Override
+    public void shuffle() {
+        mState = SHUFFLE_ON;
+        mListener.onChangePLayerState(mState);
     }
 
     @Override
     public void shuffleOn() {
         mShuffle.setShuffle(SHUFFLE_ON);
+        mState = SHUFFLE_ON;
+        mListener.onChangePLayerState(mState);
     }
 
     @Override
     public void shuffleOff() {
         mShuffle.setShuffle(SHUFFLE_OFF);
+        mState = SHUFFLE_OFF;
+        mListener.onChangePLayerState(mState);
     }
 
     @Override
@@ -131,14 +167,8 @@ public class SongManager implements SongPlayerController, MediaPlayer.OnPrepared
         }
     }
 
-    public boolean isNewSongSelected(Song song) {
-        if (song == null) {
-            return false;
-        }
-        if (mCurrentSong == null) {
-            return true;
-        }
-        return song.getId() != mCurrentSong.getId();
+    private boolean isNewSongSelected(Song song) {
+        return song != null && (mCurrentSong == null || song.getId() != mCurrentSong.getId());
     }
 
     private boolean isEndOfList() {

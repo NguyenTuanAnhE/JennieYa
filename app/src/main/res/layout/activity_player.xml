@@ -8,6 +8,9 @@
             name="viewModel"
             type="com.example.mandoo.jennie.screen.player.PlayerViewModel" />
 
+        <variable
+            name="listener"
+            type="com.example.mandoo.jennie.screen.player.OnPlayerClickListener" />
     </data>
 
     <android.support.constraint.ConstraintLayout
@@ -23,6 +26,7 @@
 
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/image_artwork"
+            imageUrl="@{viewModel.mSong.albumArt}"
             android:layout_width="@dimen/dp_270"
             android:layout_height="@dimen/dp_270"
             android:layout_marginTop="8dp"
@@ -40,17 +44,16 @@
 
         <SeekBar
             android:id="@+id/seek_bar_duration"
-            onSeekBarChangeListener="@{viewModel}"
             setMax="@{viewModel.mSong.duration}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
+            android:onProgressChanged="@{(seekbar, progress, fromUser)->listener.onProgressChanged(seekbar, progress, fromUser)}"
             android:progress="@{viewModel.mSongProgress}"
             android:progressDrawable="@drawable/seekbar_progress"
             android:thumbTint="@android:color/black"
             android:thumbTintMode="src_in"
             app:layout_constraintBottom_toTopOf="@+id/text_title"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent" />
 
@@ -116,6 +119,7 @@
             android:layout_height="@dimen/dp_48"
             android:layout_marginBottom="@dimen/dp_36"
             android:background="@drawable/ripple_play"
+            android:onClick="@{()-> listener.onPlay()}"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -126,6 +130,7 @@
             android:layout_width="@dimen/dp_32"
             android:layout_height="@dimen/dp_32"
             android:background="@drawable/ic_next"
+            android:onClick="@{()-> listener.onNext()}"
             app:layout_constraintBottom_toBottomOf="@+id/image_play_pause"
             app:layout_constraintEnd_toStartOf="@+id/image_loop"
             app:layout_constraintStart_toEndOf="@+id/image_play_pause"
@@ -137,6 +142,7 @@
             android:layout_height="@dimen/dp_32"
             android:layout_marginEnd="@dimen/dp_36"
             android:background="@drawable/ic_previous"
+            android:onClick="@{()-> listener.onPrevious()}"
             app:layout_constraintBottom_toBottomOf="@+id/image_play_pause"
             app:layout_constraintEnd_toStartOf="@+id/image_play_pause"
             app:layout_constraintTop_toTopOf="@+id/image_play_pause" />
@@ -146,6 +152,7 @@
             android:layout_width="@dimen/dp_24"
             android:layout_height="@dimen/dp_24"
             android:background="@drawable/ic_shuffle"
+            android:onClick="@{()-> listener.onShuffle()}"
             app:layout_constraintBottom_toBottomOf="@+id/image_previous"
             app:layout_constraintEnd_toStartOf="@+id/image_previous"
             app:layout_constraintStart_toStartOf="parent"
@@ -156,6 +163,7 @@
             android:layout_width="@dimen/dp_24"
             android:layout_height="@dimen/dp_24"
             android:background="@drawable/ic_loop"
+            android:onClick="@{()-> listener.onLoop()}"
             app:layout_constraintBottom_toBottomOf="@+id/image_next"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/image_next"
